@@ -3,43 +3,17 @@
 
 let num1 = 0;
 let num2 = 0;
-let operand = "";
 let displayValue = "";
 let runningTotal = "";
 const mainDisplay = document.getElementById("calc-display");
 let finalOperator = "";
 
+
 btnEventListnerAssign();
-
-
-function operate (num1, operand, num2) {
-    if (operand === "+") {
-        let finalnum1 = Number(num1);
-        let finalnum2 = Number(num2);
-        let sum = finalnum1+finalnum2;
-        console.log("ANSWER : " + sum); 
-        mainDisplay.innerHTML = "asdasdasd";
-
-
-    }
-    else if (operand === "-") {
-        return(subtract(num1, num2));
-    }
-    else if (operand === "/") {
-        return(divide(num1, num2));
-    }
-    else if (operand === "*") {
-        return (divide(num1, num2));
-    }
-    else {
-        return ("ERROR!!");
-    }
-}
-
-
-
 numLogic();
 //console.log(operate (15, "/", 5));
+
+
 
 //reset all values to start fresh
 function reset () {
@@ -49,6 +23,16 @@ function reset () {
     num2 = 0;
     operand = "";
     displayValue = "";
+    finalOperator =- "";
+    
+}
+
+function assignOperand (operator) {
+
+    console.log("OP IS " + operator);
+    finalOperator = operator;
+    console.log("operator is = " + operator);
+
 }
 
 function btnEventListnerAssign() {
@@ -58,10 +42,17 @@ for (let i = 0; i < test.length; i++) {
     test[i].addEventListener("click", function(e) {updateDisplay(this.value);});
 }
 
-const operators = document.querySelectorAll(".btnoperator");
+const operands = document.querySelectorAll(".btnOperand")
+for (let z = 0; z < operands.length; z++) {
+    operands[z].addEventListener("click", function(e){assignOperand(this.value), updateDisplay(this.value)});
+}
+
 
 
 }
+
+
+
 
 //function to update display - without any sums in..
 
@@ -77,26 +68,61 @@ console.log("YOUR DISPLAY TOTAL IS : " + displayValue);
 }
 
 function numLogic () {
-    let myArr = displayValue.split("+" || "/" || "*" || "-");
+    let pattern = /[+\-*/]/;
+    let myArr = displayValue.split(pattern);
+    let final = 0;
+    let strFinal = "";
+    const mainDisplay = document.getElementById("calc-display");
 
-    for (let i = 0; i < myArr.length; i++) {
-        console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
-        num1 = Number(myArr[0]);
+
+    console.log(myArr);
+    console.log("SUBMITTED OPERATOR : " + finalOperator);
+    if (finalOperator === "+") {
+
+            for (let i = 0; i < myArr.length; i++) {
+                console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
+                num1 = Number(myArr[0]);
         console.log("NUM1 : " + num1);
         num2 = Number(myArr[1]);
         console.log("NUM2 : " + num2);
         
-        let final =  num1 + num2;
-        let strFinal = final.toString(); 
+        final =  num1 + num2;
+        strFinal = final.toString(); 
 
-        const mainDisplay = document.getElementById("calc-display");
-        mainDisplay.innerHTML = strFinal;
     
+        }
     }
 
+    else if (finalOperator === "*") {
 
-   
+        for (let i = 0; i < myArr.length; i++) {
+            console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
+            num1 = Number(myArr[0]);
+    console.log("NUM1 : " + num1);
+    num2 = Number(myArr[1]);
+    console.log("NUM2 : " + num2);
+    
+    final =  num1 * num2;
+    strFinal = final.toString(); 
+    }
+}
 
+
+else if (finalOperator === "/") {
+
+    for (let i = 0; i < myArr.length; i++) {
+        console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
+        num1 = Number(myArr[0]);
+console.log("NUM1 : " + num1);
+num2 = Number(myArr[1]);
+console.log("NUM2 : " + num2);
+
+final =  num1 / num2;
+strFinal = final.toString(); 
+}
+}
+
+mainDisplay.innerHTML = strFinal;
 
 }
 
@@ -112,4 +138,3 @@ assign running total to num  2
 
 
 */
-

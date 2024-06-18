@@ -6,37 +6,21 @@ let num2 = 0;
 let operand = "";
 let displayValue = "";
 let runningTotal = "";
+const mainDisplay = document.getElementById("calc-display");
+let finalOperator = "";
 
 btnEventListnerAssign();
 
-function add (num1, num2) {
-
-    let total = num1+num2;
-
-    return (total)
-}
-
-function subtract (num1, num2) {
-    let total = num1-num2;
-
-    return (total)
-}
-
-function multiply (num1, num2) {
-    let total = num1 * num2;
-
-    return (total)
-}
-
-function divide (num1, num2) {
-    let total = num1 / num2;
-
-    return (total);
-}
 
 function operate (num1, operand, num2) {
     if (operand === "+") {
-        return (add(num1, num2));
+        let finalnum1 = Number(num1);
+        let finalnum2 = Number(num2);
+        let sum = finalnum1+finalnum2;
+        console.log("ANSWER : " + sum); 
+        mainDisplay.innerHTML = "asdasdasd";
+
+
     }
     else if (operand === "-") {
         return(subtract(num1, num2));
@@ -47,12 +31,14 @@ function operate (num1, operand, num2) {
     else if (operand === "*") {
         return (divide(num1, num2));
     }
-
     else {
         return ("ERROR!!");
     }
 }
 
+
+
+numLogic();
 //console.log(operate (15, "/", 5));
 
 //reset all values to start fresh
@@ -71,19 +57,47 @@ const test = document.querySelectorAll(".btnnumber");
 for (let i = 0; i < test.length; i++) {
     test[i].addEventListener("click", function(e) {updateDisplay(this.value);});
 }
+
+const operators = document.querySelectorAll(".btnoperator");
+
+
 }
+
+//function to update display - without any sums in..
+
+
 
 
 //function update display 
 function updateDisplay (clickedValue) {
 displayValue = displayValue + "" + clickedValue;
-const mainDisplay = document.getElementById("calc-display");
 mainDisplay.innerHTML = displayValue;
-console.log("YOUR RUNNING TOTAL IS : " + displayValue);
+console.log("YOUR DISPLAY TOTAL IS : " + displayValue);
+
 }
 
 function numLogic () {
+    let myArr = displayValue.split("+" || "/" || "*" || "-");
+
+    for (let i = 0; i < myArr.length; i++) {
+        console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
+        num1 = Number(myArr[0]);
+        console.log("NUM1 : " + num1);
+        num2 = Number(myArr[1]);
+        console.log("NUM2 : " + num2);
+        
+        let final =  num1 + num2;
+        let strFinal = final.toString(); 
+
+        const mainDisplay = document.getElementById("calc-display");
+        mainDisplay.innerHTML = strFinal;
     
+    }
+
+
+   
+
+
 }
 
 

@@ -1,29 +1,32 @@
-//Pseudo code
-
-
 let num1 = 0;
 let num2 = 0;
 let displayValue = "";
 let runningTotal = "";
 const mainDisplay = document.getElementById("calc-display");
 let finalOperator = "";
+let myArr = null;
+let final = null;
+let strFinal = null;
 
-
+//call button listenrs.
 btnEventListnerAssign();
-numLogic();
-//console.log(operate (15, "/", 5));
+
 
 
 
 //reset all values to start fresh
 function reset () {
     runningTotal = "";
-    updateDisplay("");
+    mainDisplay.innerHTML = "";
     num1 = 0;
     num2 = 0;
     operand = "";
     displayValue = "";
-    finalOperator =- "";
+    finalOperator = "";
+    clickedValue = " ";
+    myArr = null;
+    final = null;
+    strFinal = null;
     
 }
 
@@ -36,28 +39,20 @@ function assignOperand (operator) {
 }
 
 function btnEventListnerAssign() {
-//add event listeners to all buttons that are numbers or operators..
+//add event listeners to all buttons that are numbers 
 const test = document.querySelectorAll(".btnnumber");
 for (let i = 0; i < test.length; i++) {
     test[i].addEventListener("click", function(e) {updateDisplay(this.value);});
 }
 
+// add event lister on all operands
 const operands = document.querySelectorAll(".btnOperand")
 for (let z = 0; z < operands.length; z++) {
     operands[z].addEventListener("click", function(e){assignOperand(this.value), updateDisplay(this.value)});
 }
 
 
-
 }
-
-
-
-
-//function to update display - without any sums in..
-
-
-
 
 //function update display 
 function updateDisplay (clickedValue) {
@@ -68,10 +63,12 @@ console.log("YOUR DISPLAY TOTAL IS : " + displayValue);
 }
 
 function numLogic () {
+    //REGEX pattern to remove operands
     let pattern = /[+\-*/]/;
-    let myArr = displayValue.split(pattern);
-    let final = 0;
-    let strFinal = "";
+    //split array using operand pattern
+    myArr = displayValue.split(pattern);
+    final = null;
+    strFinal = "";
     const mainDisplay = document.getElementById("calc-display");
 
 
@@ -80,61 +77,42 @@ function numLogic () {
     if (finalOperator === "+") {
 
             for (let i = 0; i < myArr.length; i++) {
-                console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
-                num1 = Number(myArr[0]);
-        console.log("NUM1 : " + num1);
-        num2 = Number(myArr[1]);
-        console.log("NUM2 : " + num2);
-        
-        final =  num1 + num2;
-        strFinal = final.toString(); 
-
-    
+                //loop through array and add to final, turn final to string.. 
+                myArr[i] = Number(myArr[i]);
+                final += myArr[i]
+                strFinal = final.toString(); 
         }
     }
 
     else if (finalOperator === "*") {
 
-        for (let i = 0; i < myArr.length; i++) {
-            console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
-            num1 = Number(myArr[0]);
-    console.log("NUM1 : " + num1);
-    num2 = Number(myArr[1]);
-    console.log("NUM2 : " + num2);
+            for (let i = 1; i < myArr.length; i++) {
+                //loop through array and add to final, turn final to string.. 
     
-    final =  num1 * num2;
-    strFinal = final.toString(); 
+                myArr[i] = Number(myArr[i]);
+                final = Number(myArr[0]);
+                console.log(final *= myArr[i] );
+                strFinal = final.toString(); 
+    }
+    }
+
+
+    else if (finalOperator === "/") {
+
+            for (let i = 1; i < myArr.length; i++)  {
+                myArr[i] = Number(myArr[i]);
+                final = Number(myArr[0]);
+                console.log(final *= myArr[i] );
+                strFinal = final.toString();
+
     }
 }
 
 
-else if (finalOperator === "/") {
-
-    for (let i = 0; i < myArr.length; i++) {
-        console.log("ARR ITEM : " + myArr + "ARR NUMBER : " + myArr[i]);
-        num1 = Number(myArr[0]);
-console.log("NUM1 : " + num1);
-num2 = Number(myArr[1]);
-console.log("NUM2 : " + num2);
-
-final =  num1 / num2;
-strFinal = final.toString(); 
-}
-}
-
 mainDisplay.innerHTML = strFinal;
-
 }
 
 
 
-//pseudo for logic 
-/*
-
-if operand is empty 
-assign running total to num 1
-if operand isnt empty
-assign running total to num  2
 
 
-*/
